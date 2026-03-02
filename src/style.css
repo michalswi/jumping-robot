@@ -1,0 +1,251 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #1a1a2e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#game-container {
+  width: 100%;
+  height: 100%;
+  max-width: 900px;
+  max-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#top-bar {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1000;
+}
+
+#github-link {
+  display: flex;
+  align-items: center;
+  color: #a0c4e8;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+#github-link:hover {
+  color: #64c8ff;
+}
+
+#theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 5px 7px;
+  cursor: pointer;
+  color: #a0c4e8;
+  transition: background 0.2s, color 0.2s;
+}
+
+#theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #64c8ff;
+}
+
+/* Light mode overrides */
+body.light-mode {
+  background: #e8f0fa;
+}
+
+body.light-mode #top-bar #github-link {
+  color: #2c5282;
+}
+
+body.light-mode #top-bar #github-link:hover {
+  color: #1a365d;
+}
+
+body.light-mode #theme-toggle {
+  background: rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #2c5282;
+}
+
+body.light-mode #theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.14);
+  color: #1a365d;
+}
+
+body.light-mode #site-footer {
+  color: #4a6fa5;
+}
+
+#site-footer {
+  position: fixed;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  color: #4a6fa5;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-align: center;
+  user-select: none;
+  pointer-events: none;
+}
+
+#game-container canvas {
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(100, 200, 255, 0.25);
+  touch-action: none;
+  max-width: 100%;
+}
+
+/* ── About button ─────────────────────────────────────────────────────────── */
+#about-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: #a0c4e8;
+  font-size: 13px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, color 0.2s;
+}
+
+#about-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #64c8ff;
+}
+
+body.light-mode #about-btn {
+  background: rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: #2c5282;
+}
+
+body.light-mode #about-btn:hover {
+  background: rgba(0, 0, 0, 0.14);
+  color: #1a365d;
+}
+
+/* ── About modal overlay ──────────────────────────────────────────────────── */
+#about-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.18s ease;
+}
+
+#about-overlay[hidden] {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#about-modal {
+  position: relative;
+  background: #0f2044;
+  border: 1px solid rgba(100, 200, 255, 0.25);
+  border-radius: 16px;
+  padding: 36px 48px 32px;
+  text-align: center;
+  max-width: 380px;
+  width: 90%;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(100,200,255,0.08);
+  animation: popIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+
+#about-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #6a9ac4;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+
+#about-close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.about-lang {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.about-text {
+  color: #c8dff5;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.about-divider {
+  border: none;
+  border-top: 1px solid rgba(100, 200, 255, 0.15);
+  margin: 18px 0;
+}
+
+body.light-mode #about-modal {
+  background: #f0f6ff;
+  border-color: rgba(0, 80, 160, 0.2);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+body.light-mode .about-text {
+  color: #2c4a72;
+}
+
+body.light-mode #about-close {
+  color: #4a6fa5;
+}
+
+body.light-mode #about-close:hover {
+  color: #1a365d;
+  background: rgba(0, 0, 0, 0.07);
+}
+
+body.light-mode .about-divider {
+  border-color: rgba(0, 80, 160, 0.15);
+}

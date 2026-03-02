@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f3460" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Jumping Robot Game</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="top-bar">
+      <button id="about-btn" aria-label="About">about</button>
+      <a id="github-link" href="https://github.com/michalswi/jumping-robot" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.3 1.23A11.51 11.51 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.29-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 21.796 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </a>
+      <button id="theme-toggle" aria-label="Toggle dark/light mode">
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- About modal -->
+    <div id="about-overlay" role="dialog" aria-modal="true" aria-label="About" hidden>
+      <div id="about-modal">
+        <button id="about-close" aria-label="Close">&times;</button>
+        <p class="about-lang">🇵🇱</p>
+        <p class="about-text">młode studio prosto z Wrocławia</p>
+        <hr class="about-divider" />
+        <p class="about-lang">🇬🇧</p>
+        <p class="about-text">young studio straight from Wrocław [Poland]</p>
+      </div>
+    </div>
+
+    <div id="game-container"></div>
+    <footer id="site-footer">© 2049 WUj Studio. All rights reserved.</footer>
+    <script type="module" src="/src/main.ts"></script>
+    <script>
+      const btn = document.getElementById('theme-toggle');
+      const moon = document.getElementById('icon-moon');
+      const sun = document.getElementById('icon-sun');
+      btn.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        const isLight = document.body.classList.contains('light-mode');
+        moon.style.display = isLight ? 'none' : 'block';
+        sun.style.display = isLight ? 'block' : 'none';
+      });
+
+      // About modal
+      const overlay   = document.getElementById('about-overlay');
+      const aboutBtn  = document.getElementById('about-btn');
+      const closeBtn  = document.getElementById('about-close');
+
+      function openAbout()  { overlay.hidden = false; closeBtn.focus(); }
+      function closeAbout() { overlay.hidden = true;  aboutBtn.focus(); }
+
+      aboutBtn.addEventListener('click', openAbout);
+      closeBtn.addEventListener('click', closeAbout);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeAbout(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !overlay.hidden) closeAbout(); });
+    </script>
+  </body>
+</html>
